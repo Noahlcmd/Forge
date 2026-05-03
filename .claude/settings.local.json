@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(NEXT_PUBLIC_SUPABASE_URL=https://placeholder.supabase.co NEXT_PUBLIC_SUPABASE_ANON_KEY=placeholder npx next build)",
+      "mcp__a51bc4fe-8b27-40cf-b25a-7614897115c2__list_projects",
+      "mcp__a51bc4fe-8b27-40cf-b25a-7614897115c2__list_migrations",
+      "mcp__a51bc4fe-8b27-40cf-b25a-7614897115c2__list_tables",
+      "mcp__a51bc4fe-8b27-40cf-b25a-7614897115c2__execute_sql",
+      "mcp__a51bc4fe-8b27-40cf-b25a-7614897115c2__apply_migration",
+      "Bash(node -e \"require\\('zod'\\)\")",
+      "Bash(node -e \"const {z}=require\\('zod'\\); console.log\\(z.version\\)\")",
+      "Bash(node -e \"const pkg=require\\('./node_modules/zod/package.json'\\); console.log\\(pkg.version\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(cat .env.local)",
+      "Bash(cat .env)",
+      "Bash(node -e \"require\\('stripe'\\)\")",
+      "Bash(node -e \"const s=require\\('./node_modules/stripe/package.json'\\); console.log\\('version:', s.version\\)\")",
+      "Bash(node -e \"const s=require\\('stripe'\\); const st=new s\\('sk_test_x'\\); console.log\\(st.getApiField\\('version'\\)\\)\")",
+      "Bash(node -e \"const Stripe = require\\('stripe'\\); const s = new Stripe\\('sk_test_xxx'\\); console.log\\('ok'\\)\")",
+      "Bash(xargs grep *)",
+      "Bash(cat next.config.ts)",
+      "Bash(cat next.config.js)",
+      "Bash(node -e \"const p = require\\('./package.json'\\); console.log\\(p.dependencies.next, p.dependencies['@supabase/supabase-js']\\)\")",
+      "Bash(ls src/middleware.ts)",
+      "Bash(ls src/app/middleware.ts)",
+      "Bash(npm list *)",
+      "Bash(npx next *)",
+      "Bash(node -e \"const tw = require\\('./node_modules/tailwindcss/package.json'\\); console.log\\('tailwindcss:', tw.version\\)\")",
+      "Bash(node -e \"const p = require\\('./node_modules/postcss/package.json'\\); console.log\\('postcss:', p.version\\)\")",
+      "Bash(node -e \"const l = require\\('/c/Users/noahl/Desktop/Forge-app/node_modules/lucide-react'\\); console.log\\('UserSquare2' in l, 'BarChart2' in l\\)\")",
+      "Bash(node -e \"console.log\\(require\\('./package.json'\\).dependencies.next\\)\")",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\(JSON.stringify\\(Object.keys\\({...p.dependencies,...p.devDependencies}\\),null,2\\)\\)\")"
+    ]
+  }
+}

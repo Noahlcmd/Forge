@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design tokens ─────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    /* Sidebar (dark) */
+    --sidebar-bg:     #111318;
+    --sidebar-text:   #9499a5;
+    --sidebar-hover:  #1e2128;
+    --sidebar-active: #252932;
+    --sidebar-border: #1e2128;
+
+    /* Content area (light) */
+    --topbar-bg:    #ffffff;
+    --topbar-border:#f0f0f0;
+    --content-bg:   #f7f8fa;
+    --card-bg:      #ffffff;
+    --card-border:  #eaedf2;
+
+    /* Typography */
+    --text-primary:   #0d0e12;
+    --text-secondary: #6b7280;
+    --text-muted:     #9ca3af;
+
+    /* Elevation */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+
+    /* Border radii */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+
+    /* Org accent — overridden by ThemeProvider at runtime */
+    --color-primary:       #f97316;
+    --color-accent:        #f97316;
+    --color-primary-alpha: rgba(249,115,22,0.13);
+
+    /* Inputs and subtle surfaces in content area */
+    --input-bg:         #f7f8fa;
+    --input-border:     #e2e8f0;
+    --surface-subtle:   #fafbfc;   /* table headers, section strips */
+  }
+
+  /* Dark mode overrides — activated when ThemeProvider sets html.dark */
+  html.dark {
+    --color-primary-alpha: rgba(249,115,22,0.18);
+    --content-bg:       #0f1117;
+    --card-bg:          #161b27;
+    --card-border:      #1e2535;
+    --topbar-bg:        #111827;
+    --topbar-border:    #1e2535;
+    --text-primary:     #f1f5f9;
+    --text-secondary:   #94a3b8;
+    --text-muted:       #64748b;
+    --input-bg:         #1a2035;
+    --input-border:     #2a3550;
+    --surface-subtle:   #131929;   /* dark equivalent of table header strip */
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Auth pages — dark background */
+  body {
+    @apply bg-[#09090b] text-zinc-50;
+  }
+
+  /* Scrollbar — dark (used in sidebar / auth) */
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-zinc-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-zinc-600; }
+
+  ::selection { background: rgba(249,115,22,0.3); color: #fff; }
+}
+
+/* ─── Font overrides ───────────────────────────────────────────────────────── */
+html[data-font="poppins"] body { font-family: var(--font-poppins), sans-serif; }
+html[data-font="roboto"]  body { font-family: var(--font-roboto),  sans-serif; }
+html[data-font="system"]  body { font-family: system-ui, -apple-system, sans-serif; }
+
+/* ─── Dashboard content shell ──────────────────────────────────────────────── */
+/* Applied to the right-hand column in (dashboard)/layout.tsx                  */
+.forge-content {
+  background: var(--content-bg);
+  color:      var(--text-primary);
+}
+
+/* Light scrollbar inside content area */
+.forge-content ::-webkit-scrollbar-thumb       { background: #d0d5e0; }
+.forge-content ::-webkit-scrollbar-thumb:hover { background: #b0b8c8; }
+
+/* ─── Reusable UI components ───────────────────────────────────────────────── */
+@layer components {
+
+  /* ── Auth / dark inputs ──────────────────────────────────────────────────── */
+  .input-base {
+    @apply w-full px-3 py-2 rounded-lg bg-zinc-800 border border-zinc-700
+           text-sm text-zinc-100 placeholder:text-zinc-600
+           focus:outline-none focus:border-orange-500/60 transition-colors;
+  }
+
+  /* ── Light content card ──────────────────────────────────────────────────── */
+  .forge-card {
+    background:    var(--card-bg);
+    border:        1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow:    var(--shadow-sm);
+  }
+
+  /* ── Content-area input (light + dark adaptive) ─────────────────────────── */
+  .forge-input {
+    width:         100%;
+    padding:       7px 12px;
+    border:        1px solid var(--input-border, var(--card-border));
+    border-radius: var(--radius-md);
+    font-size:     13px;
+    color:         var(--text-primary);
+    background:    var(--input-bg);
+    caret-color:   var(--text-primary);
+    outline:       none;
+    transition:    border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    font-family:   inherit;
+  }
+  .forge-input::placeholder { color: var(--text-muted); }
+  .forge-input:focus {
+    border-color: var(--color-primary);
+    box-shadow:   0 0 0 3px rgba(249,115,22,0.15);
+  }
+  .forge-input:disabled {
+    opacity: 0.5;
+    cursor:  not-allowed;
+  }
+
+  /* ── Nexus-style buttons ─────────────────────────────────────────────────── */
+  .btn {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           6px;
+    padding:       8px 16px;
+    border-radius: var(--radius-md);
+    font-size:     13px;
+    font-weight:   500;
+    cursor:        pointer;
+    transition:    all 0.15s;
+    border:        none;
+    font-family:   inherit;
+    text-decoration: none;
+  }
+  .btn-primary             { background: var(--color-primary); color: #fff; }
+  .btn-primary:hover       { filter: brightness(0.88); }
+  .btn-secondary           { background: var(--card-bg); color: var(--text-primary); border: 1px solid var(--card-border); }
+  .btn-secondary:hover     { background: var(--input-bg); border-color: var(--input-border); }
+  .btn-sm                  { padding: 5px 12px; font-size: 12px; }
+
+  /* ── Status chips ────────────────────────────────────────────────────────── */
+  .chip {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           4px;
+    padding:       3px 9px;
+    border-radius: 20px;
+    font-size:     11px;
+    font-weight:   500;
+    line-height:   1.5;
+    white-space:   nowrap;
+  }
+  .chip-green  { background: #e8f7ee; color: #12a150; }
+  .chip-red    { background: #fff0f0; color: #e53e3e; }
+  .chip-amber  { background: #fffbeb; color: #d97706; }
+  .chip-blue   { background: #eff6ff; color: #2563eb; }
+  .chip-gray   { background: #f3f4f6; color: #6b7280; }
+  .chip-purple { background: #eef0ff; color: #4f5fd4; }
+}
+
+/* ─── Utilities ────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  .bg-dot-grid {
+    background-image:  radial-gradient(rgba(250,250,250,0.06) 1px, transparent 1px);
+    background-size:   22px 22px;
+  }
+
+  .text-gradient-orange {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600;
+  }
+}
