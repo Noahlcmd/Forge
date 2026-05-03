@@ -508,7 +508,7 @@ export function ChatClient({ initialChannels, currentUser, userRole, orgId, defa
           <div className="flex flex-col items-center justify-center h-full gap-3">
             <Hash className="w-10 h-10" style={{ color: 'var(--text-muted)' }} />
             <p className="text-[14px] font-[500]" style={{ color: 'var(--text-primary)' }}>No channels yet</p>
-            <p className="text-[13px]" style={{ color: 'var(--text-muted)' }}>Click "New Channel" to get started.</p>
+            <p className="text-[13px]" style={{ color: 'var(--text-muted)' }}>{'Click "New Channel" to get started.'}</p>
           </div>
         )}
       </div>

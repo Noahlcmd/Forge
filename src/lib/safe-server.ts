@@ -55,9 +55,7 @@ export async function safeQuery<T>(
  *     ...
  *   })
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function withSafeHandler(handler: (req: Request, ctx?: any) => Promise<Response>) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async (req: Request, ctx?: any): Promise<Response> => {
     try {
       return await handler(req, ctx)
@@ -119,7 +117,6 @@ export function requireAuth(
  */
 export function enforceOrgQuery<
   // Supabase FilterBuilder / PostgrestFilterBuilder both expose .eq()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends { eq: (column: string, value: unknown) => any }
 >(query: T, orgId: string | null | undefined): ReturnType<T['eq']> {
   if (!orgId) {
