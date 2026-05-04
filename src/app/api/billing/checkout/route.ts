@@ -4,13 +4,15 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { stripe } from '@/lib/stripe'
 import { withSafeHandler } from '@/lib/safe-server'
 
-/** Derive the app origin from the incoming request so the URL always matches
- *  the actual running port, regardless of NEXT_PUBLIC_APP_URL. */
+/** Returns the canonical app origin for Stripe success/cancel URLs. */
 function requestOrigin(req: Request): string {
+  // Prefer the explicit env var — set to the Vercel domain in production.
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, '')
+
+  // Local dev fallback: derive from the incoming request headers.
   const origin = req.headers.get('origin')
   if (origin) return origin
 
-  // When called server-side or without an Origin header, fall back to host
   const proto = req.headers.get('x-forwarded-proto') ?? 'http'
   const host  = req.headers.get('x-forwarded-host') ?? req.headers.get('host') ?? 'localhost:3000'
   return `${proto}://${host}`

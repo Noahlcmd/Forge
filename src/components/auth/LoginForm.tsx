@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { getAppUrl } from '@/lib/app-url'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Mail } from 'lucide-react'
@@ -19,9 +20,10 @@ export default function LoginForm({ next }: { next?: string } = {}) {
     setError('')
 
     const callbackNext = next ? encodeURIComponent(next) : ''
+    const base = getAppUrl()
     const emailRedirectTo = callbackNext
-      ? `${window.location.origin}/auth/callback?next=${callbackNext}`
-      : `${window.location.origin}/auth/callback`
+      ? `${base}/auth/callback?next=${callbackNext}`
+      : `${base}/auth/callback`
 
     const supabase = createClient()
     const { error: otpError } = await supabase.auth.signInWithOtp({

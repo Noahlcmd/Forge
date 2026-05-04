@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { createClient } from '@/lib/supabase/client'
+import { getAppUrl } from '@/lib/app-url'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { ArrowLeft, MailCheck } from 'lucide-react'
@@ -25,7 +26,7 @@ export function ResetPasswordForm() {
     const supabase = createClient()
 
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/callback?type=recovery`,
+      redirectTo: `${getAppUrl()}/auth/callback?type=recovery`,
     })
 
     if (resetError) {

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { createClient } from '@/lib/supabase/client'
+import { getAppUrl } from '@/lib/app-url'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { PasswordInput } from '@/components/ui/PasswordInput'
@@ -50,9 +51,10 @@ export function SignupForm({ next }: { next?: string } = {}) {
 
     const supabase = createClient()
     const callbackNext = next ? encodeURIComponent(next) : ''
+    const base = getAppUrl()
     const emailRedirectTo = callbackNext
-      ? `${window.location.origin}/auth/callback?next=${callbackNext}`
-      : `${window.location.origin}/auth/callback`
+      ? `${base}/auth/callback?next=${callbackNext}`
+      : `${base}/auth/callback`
 
     const { error } = await supabase.auth.signUp({
       email: form.email,
